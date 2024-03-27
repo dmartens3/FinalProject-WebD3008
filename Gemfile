@@ -68,3 +68,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Gems added by me
+
+gem "devise", "~> 4.9"
