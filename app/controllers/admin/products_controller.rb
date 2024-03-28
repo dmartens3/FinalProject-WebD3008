@@ -37,7 +37,15 @@ class Admin::ProductsController < AdminController
   # PATCH/PUT /admin/products/1 or /admin/products/1.json
   def update
     respond_to do |format|
-      if @admin_product.update(admin_product_params)
+      if @admin_product.update(admin_product_params.reject { |p| p['images']})
+
+        # This is to prevent updates from deleting old images
+        if admin_product_params['images']
+          admin_product_params['images'].each do |image|
+            @admin_product.images.attach(image)
+          end
+        end
+
         format.html { redirect_to admin_product_url(@admin_product), notice: "Product was successfully updated." }
         format.json { render :show, status: :ok, location: @admin_product }
       else
