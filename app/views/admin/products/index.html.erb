@@ -12,13 +12,16 @@
     <table class="text-left">
       <thead>
         <tr class="bg-green-200">
-          <th class="p-2">Products:</th>
+          <th class="p-2">Image:</th>
+          <th class="p-2">Name:</th>
+          <th class="p-2">Price:</th>
+          <th class="p-2">Description:</th>
         </tr>
       </thead>
       <tbody>
         <% @admin_products.each do |product| %>
         <tr class="even:bg-blue-100 hover:bg-gray-200">
-          <td><%= product.images.any? ? image_tag(product.images.first.variant(:thumb)) : "Missing!" %></td>
+          <td><%= product.images.any? ? image_tag(product.images.first.variant(resize_to_limit: [100, 100])) : 'Missing!' %></td>
           <td class="p-2 underline"><%= link_to product.name, edit_admin_product_path(product) %></td>
           <td class="p-2">$<%= '%.2f' % product.price %></td>
           <td class="p-2 overflow-hidden"><%= product.description %></td>

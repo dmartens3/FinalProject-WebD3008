@@ -11,5 +11,13 @@
       <%= button_to "Destroy this product", admin_product_path(@admin_product), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
     <%= link_to "Back to products", admin_products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+
+    <% if @admin_product.images.any? %>
+      <% @admin_product.images.each do |image| %>
+        <%= image_tag(image) %>
+      <% end %>
+    <% else %>
+      <p class="text-lg">Missing images!</p>
+    <% end %>
   </div>
 </div>
