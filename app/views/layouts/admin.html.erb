@@ -12,9 +12,9 @@
     </head>
 
     <body>
-        <main class="flex">
-            <nav class="flex h-full">
-                <div class="h-32 p-4 w-screen bg-purple-600 sticky top-0">
+        <main class="flex flex-col w-full">
+            <nav class="flex flex-col w-full">
+                <div class="h-40 p-4 bg-purple-600 sticky top-0">
                     <div class="flex pl-6">
                         <h1 class="text-lg py-2 text-white font-bold hidden md:block">Crazy Computers Store Admin </h1>
                     </div>
@@ -30,7 +30,7 @@
                             <% end %>
                         </li>
                         <li class="border rounded mr-4">
-                            <%= link_to admin_path, class: "block px-4 py-2 hover:rounded hover:bg-purple-800" do %>
+                            <%= link_to admin_categories_path, class: "block px-4 py-2 hover:rounded hover:bg-purple-800" do %>
                                 <%= icon('fa-solid', 'folder-open', class: 'mr-1') %> <span class="hidden md:inline-block">Categories</span>
                             <% end %>
                         </li>
@@ -57,7 +57,9 @@
                     </ul>
                 </div>
             </nav>
-            <%= yield %>
+            <div class="p-6">
+                <%= yield %>
+            </div>
         </main>
     </body>
 </html>
