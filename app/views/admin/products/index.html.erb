@@ -8,7 +8,23 @@
     <%= link_to "New product", new_admin_product_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="admin_products" class="min-w-full">
-    <%= render @admin_products %>
+  <div>
+    <table class="text-left">
+      <thead>
+        <tr class="bg-green-200">
+          <th class="p-2">Products:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @admin_products.each do |product| %>
+        <tr class="even:bg-blue-100 hover:bg-gray-200">
+          <td><%= product.images.any? ? image_tag(product.images.first.variant(:thumb)) : "Missing!" %></td>
+          <td class="p-2 underline"><%= link_to product.name, edit_admin_product_path(product) %></td>
+          <td class="p-2"><%= product.price %></td>
+          <td class="p-2 overflow-hidden"><%= product.description %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
