@@ -1,9 +1,9 @@
-class Admin::ProductsController < ApplicationController
+class Admin::ProductsController < AdminController
   before_action :set_admin_product, only: %i[ show edit update destroy ]
 
   # GET /admin/products or /admin/products.json
   def index
-    @admin_products = Admin::Product.all
+    @admin_products = Product.all
   end
 
   # GET /admin/products/1 or /admin/products/1.json
@@ -12,7 +12,7 @@ class Admin::ProductsController < ApplicationController
 
   # GET /admin/products/new
   def new
-    @admin_product = Admin::Product.new
+    @admin_product = Product.new
   end
 
   # GET /admin/products/1/edit
@@ -21,7 +21,7 @@ class Admin::ProductsController < ApplicationController
 
   # POST /admin/products or /admin/products.json
   def create
-    @admin_product = Admin::Product.new(admin_product_params)
+    @admin_product = Product.new(admin_product_params)
 
     respond_to do |format|
       if @admin_product.save
@@ -37,7 +37,15 @@ class Admin::ProductsController < ApplicationController
   # PATCH/PUT /admin/products/1 or /admin/products/1.json
   def update
     respond_to do |format|
-      if @admin_product.update(admin_product_params)
+      if @admin_product.update(admin_product_params.reject { |p| p['images']})
+
+        # This is to prevent updates from deleting old images
+        if admin_product_params['images']
+          admin_product_params['images'].each do |image|
+            @admin_product.images.attach(image)
+          end
+        end
+
         format.html { redirect_to admin_product_url(@admin_product), notice: "Product was successfully updated." }
         format.json { render :show, status: :ok, location: @admin_product }
       else
@@ -60,11 +68,11 @@ class Admin::ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_product
-      @admin_product = Admin::Product.find(params[:id])
+      @admin_product = Product.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def admin_product_params
-      params.require(:admin_product).permit(:name, :description, :price)
+      params.require(:product).permit(:name, :description, :price, images: [])
     end
 end
