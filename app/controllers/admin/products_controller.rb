@@ -37,9 +37,8 @@ class Admin::ProductsController < AdminController
   # PATCH/PUT /admin/products/1 or /admin/products/1.json
   def update
     respond_to do |format|
+      # This is to prevent updates from deleting old images
       if @admin_product.update(admin_product_params.reject { |p| p['images']})
-
-        # This is to prevent updates from deleting old images
         if admin_product_params['images']
           admin_product_params['images'].each do |image|
             @admin_product.images.attach(image)
