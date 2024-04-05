@@ -1,0 +1,30 @@
+<div class="rounded-lg m-3 p-3 bg-blue-200">
+
+  <h2 class="rounded-lg m-3 p-3 bg-blue-600 text-white block text-3xl">Admin Log in</h2>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field rounded-lg m-3 p-3 bg-blue-600 text-white block font-medium">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field rounded-lg m-3 p-3 bg-blue-600 text-white block font-medium">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field rounded-lg m-3 p-3 bg-blue-600 text-white block font-medium">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+    <div class="actions rounded-lg m-3 p-3 bg-blue-600 text-white block font-medium">
+      <%= f.submit "Log in" %>
+    </div>
+  <% end %>
+
+  <%= render "admins/shared/links" %>
+
+</div>

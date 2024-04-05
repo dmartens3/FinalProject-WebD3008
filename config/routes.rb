@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     resources :products
     resources :categories
   end
-  devise_for :admins
+  devise_for :admins, controllers: {
+    sessions: 'admin/sessions'
+  }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -22,4 +24,5 @@ Rails.application.routes.draw do
 
   # I think this links http://127.0.0.1:3000/admin to the admin home page.
   get 'admin' => 'admin#index'
+  get 'admins/sign_up' => 'home#index'
 end
