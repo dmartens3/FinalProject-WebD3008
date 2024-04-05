@@ -24,4 +24,5 @@ Rails.application.routes.draw do
 
   # I think this links http://127.0.0.1:3000/admin to the admin home page.
   get 'admin' => 'admin#index'
+  get 'admins/sign_up' => 'home#index'
 end
